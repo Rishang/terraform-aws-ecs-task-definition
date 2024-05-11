@@ -122,7 +122,7 @@ locals {
     }
   )
 
-  container_definition = var.register_task_definition ? format("[%s]", local.template_file) : format("%s", data.template_file)
+  container_definition = var.register_task_definition ? format("[%s]", local.template_file) : format("%s", local.template_file)
 
   container_definitions = replace(local.container_definition, "/\"(null)\"/", "$1")
 }
