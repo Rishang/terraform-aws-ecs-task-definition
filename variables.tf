@@ -270,7 +270,7 @@ variable "runtime_platform" {
   nullable = true
   description = "The runtime platform"
   default = {
-    cpu_architecture = "ARM64"
+    cpu_architecture = "Linux/X86_64"
     operating_system_family = "LINUX"
   }
 }
