@@ -261,3 +261,16 @@ variable "workingDirectory" {
   default     = ""
   description = "The working directory in which to run commands inside the container"
 }
+
+variable "runtime_platform" {
+  type = object({
+    cpu_architecture = string
+    operating_system_family = string
+  })
+  nullable = true
+  description = "The runtime platform"
+  default = {
+    cpu_architecture = "ARM64"
+    operating_system_family = "LINUX"
+  }
+}
