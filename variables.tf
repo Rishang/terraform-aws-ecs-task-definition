@@ -48,14 +48,10 @@ variable "entryPoint" {
   type        = list(string)
 }
 
-variable "environments" {
-  default     = []
+variable "environment" {
+  default     = {}
   description = "The environment variables to pass to a container"
-  type        = list(object({
-    name      = string
-    value     = string
-    valueFrom = optional(bool, false)
-  }))
+  type        = map(string)
 }
 
 variable "essential" {
@@ -274,7 +270,7 @@ variable "runtime_platform" {
   nullable = true
   description = "The runtime platform"
   default = {
-    cpu_architecture = "X86_64"
+    cpu_architecture = "Linux/X86_64"
     operating_system_family = "LINUX"
   }
 }

@@ -38,7 +38,7 @@ locals {
   entryPoint            = jsonencode(var.entryPoint)
   extraHosts            = jsonencode(var.extraHosts)
 
-  environments = jsonencode([for e in var.environments : e.valueFrom ? { name = e.name, valueFrom = e.value } : { name = e.name, value = e.value }])
+  environment = jsonencode(var.environment != {} ? [for k, v in var.environment : { "name" : k, "value" : v }] : [])
   healthCheck = replace(jsonencode(var.healthCheck), local.classes["digit"], "$1")
 
   links = jsonencode(var.links)
@@ -93,7 +93,7 @@ locals {
       dockerLabels           = local.dockerLabels == "{}" ? "null" : local.dockerLabels
       dockerSecurityOptions  = local.dockerSecurityOptions == "[]" ? "null" : local.dockerSecurityOptions
       entryPoint             = local.entryPoint == "[]" ? "null" : local.entryPoint
-      environment            = local.environments == "[]" ? "null" : local.environments
+      environment            = local.environment == "[]" ? "null" : local.environment
       essential              = var.essential ? true : false
       extraHosts             = local.extraHosts == "[]" ? "null" : local.extraHosts
       healthCheck            = local.healthCheck == "{}" ? "null" : local.healthCheck
