@@ -48,10 +48,14 @@ variable "entryPoint" {
   type        = list(string)
 }
 
-variable "environment" {
-  default     = {}
+variable "environments" {
+  default     = []
   description = "The environment variables to pass to a container"
-  type        = map(string)
+  type        = list(object({
+    name      = string
+    value     = string
+    valueFrom = optional(bool, false)
+  }))
 }
 
 variable "essential" {
