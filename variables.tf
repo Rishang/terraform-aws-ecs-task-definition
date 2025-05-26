@@ -264,13 +264,19 @@ variable "workingDirectory" {
 
 variable "runtime_platform" {
   type = object({
-    cpu_architecture = string
+    cpu_architecture        = string
     operating_system_family = string
   })
-  nullable = true
+  nullable    = true
   description = "The runtime platform"
   default = {
-    cpu_architecture = "X86_64"
+    cpu_architecture        = "X86_64"
     operating_system_family = "LINUX"
   }
+}
+
+variable "track_latest" {
+  type        = bool
+  default     = false
+  description = "Whether should track latest ACTIVE task definition on AWS or the one created with the resource stored in state. Default is false. Useful in the event the task definition is modified outside of this resource."
 }

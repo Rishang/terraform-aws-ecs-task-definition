@@ -83,7 +83,7 @@ locals {
   }
 
   template_file = templatefile(
-    "${path.module}/templates/container-definition.json.tpl", 
+    "${path.module}/templates/container-definition.json.tpl",
     {
       command                = local.command == "[]" ? "null" : local.command
       cpu                    = var.cpu == 0 ? "null" : var.cpu
@@ -134,6 +134,8 @@ resource "aws_ecs_task_definition" "ecs_task_definition" {
   ipc_mode              = var.ipc_mode
   network_mode          = var.network_mode
   pid_mode              = var.pid_mode
+
+  track_latest = var.track_latest
 
   # Fargate requires cpu and memory to be defined at the task level
   cpu    = var.cpu
@@ -187,11 +189,11 @@ resource "aws_ecs_task_definition" "ecs_task_definition" {
   dynamic "runtime_platform" {
     for_each = var.runtime_platform != null ? [var.runtime_platform] : []
     content {
-      cpu_architecture         = upper(runtime_platform.value.cpu_architecture)
-      operating_system_family  = upper(runtime_platform.value.operating_system_family)
+      cpu_architecture        = upper(runtime_platform.value.cpu_architecture)
+      operating_system_family = upper(runtime_platform.value.operating_system_family)
     }
   }
-  
+
   tags = var.tags
 
   count = var.register_task_definition ? 1 : 0
