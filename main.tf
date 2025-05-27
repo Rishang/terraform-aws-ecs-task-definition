@@ -28,6 +28,7 @@
 #  - 2. https://docs.aws.amazon.com/AmazonECS/latest/APIReference/API_ContainerDefinition.html
 #  - 3. https://docs.aws.amazon.com/AmazonECS/latest/APIReference/API_PortMapping.html
 #  - 4. https://github.com/hashicorp/terraform/issues/17033
+data "aws_region" "current" {}
 
 locals {
   command               = jsonencode(var.command)
@@ -53,7 +54,16 @@ locals {
     "$1",
   )
 
-  logConfiguration = jsonencode(var.logConfiguration)
+  cloudwatch_log_group_name = "/${var.cloudwatch_log_group_prefix}/ecs/${var.name}"
+
+  logConfiguration = var.enable_cloudwatch ? jsonencode({
+    logDriver = "awslogs"
+    options = {
+      awslogs-group         = local.cloudwatch_log_group_name
+      awslogs-region        = data.aws_region.current.name
+      awslogs-stream-prefix = "ecs"
+    }
+  }) : jsonencode(var.logConfiguration)
 
   mountPoints = replace(
     replace(jsonencode(var.mountPoints), "/\"1\"/", "true"),
@@ -127,6 +137,13 @@ locals {
   container_definition = var.register_task_definition ? format("[%s]", local.template_file) : format("%s", local.template_file)
 
   container_definitions = replace(local.container_definition, "/\"(null)\"/", "$1")
+}
+
+resource "aws_cloudwatch_log_group" "ecs_task_definition" {
+  count = var.enable_cloudwatch == true ? 1 : 0
+
+  name              = "/${var.cloudwatch_log_group_prefix}/ecs/${var.name}"
+  retention_in_days = var.cloudwatch_log_retention_in_days
 }
 
 resource "aws_ecs_task_definition" "ecs_task_definition" {

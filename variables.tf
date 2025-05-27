@@ -310,3 +310,21 @@ variable "ecr_task_definition_tag" {
   default     = "latest"
   description = "Tag to use for the ECR task definition"
 }
+
+variable "enable_cloudwatch" {
+  type        = bool
+  default     = false
+  description = "Whether to enable CloudWatch logging if false, the value of variable `logConfiguration` will be used"
+}
+
+variable "cloudwatch_log_group_prefix" {
+  type        = string
+  default     = ""
+  description = "The prefix for the CloudWatch log group name eg: /project/environment/app"
+}
+
+variable "cloudwatch_log_retention_in_days" {
+  type        = number
+  default     = 30
+  description = "The number of days to retain the CloudWatch log group"
+}
