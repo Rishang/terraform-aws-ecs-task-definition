@@ -82,6 +82,8 @@ locals {
     digit = "/\"(-[[:digit:]]|[[:digit:]]+)\"/"
   }
 
+  image = var.ecr_create_repo ? "${aws_ecr_repository.service[0].name}:${var.ecr_task_definition_tag}" : var.image
+
   template_file = templatefile(
     "${path.module}/templates/container-definition.json.tpl",
     {
@@ -98,7 +100,7 @@ locals {
       extraHosts             = local.extraHosts == "[]" ? "null" : local.extraHosts
       healthCheck            = local.healthCheck == "{}" ? "null" : local.healthCheck
       hostname               = var.hostname == "" ? "null" : var.hostname
-      image                  = var.image == "" ? "null" : var.image
+      image                  = local.image
       interactive            = var.interactive ? true : false
       links                  = local.links == "[]" ? "null" : local.links
       linuxParameters        = local.linuxParameters == "{}" ? "null" : local.linuxParameters

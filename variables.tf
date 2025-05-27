@@ -90,7 +90,7 @@ variable "hostname" {
 }
 
 variable "image" {
-  default     = ""
+  default     = "null"
   description = "The image used to start a container"
 }
 
@@ -279,4 +279,34 @@ variable "track_latest" {
   type        = bool
   default     = false
   description = "Whether should track latest ACTIVE task definition on AWS or the one created with the resource stored in state. Default is false. Useful in the event the task definition is modified outside of this resource."
+}
+
+
+variable "ecr_create_repo" {
+  type        = bool
+  default     = false
+  description = "Enable ECR repository creation"
+}
+
+variable "ecr_scan_on_push" {
+  type        = bool
+  default     = false
+  description = "Enable ECR repository scanning on push"
+}
+
+variable "ecr_repo_name" {
+  type        = string
+  description = "Name of the ECR repository"
+}
+
+variable "ecr_repo_remove_untagged_days" {
+  type        = number
+  default     = 7
+  description = "Number of days to keep untagged images"
+}
+
+variable "ecr_task_definition_tag" {
+  type        = string
+  default     = "latest"
+  description = "Tag to use for the ECR task definition"
 }

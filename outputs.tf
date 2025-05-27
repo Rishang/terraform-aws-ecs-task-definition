@@ -18,3 +18,6 @@ output "revision" {
   value       = join("", aws_ecs_task_definition.ecs_task_definition.*.revision)
 }
 
+output "ecr_repo_name" {
+  value = var.ecr_create_repo == true ? aws_ecr_repository.service[0].name : null
+}
