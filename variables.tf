@@ -288,27 +288,18 @@ variable "ecr_create_repo" {
   description = "Enable ECR repository creation"
 }
 
-variable "ecr_scan_on_push" {
-  type        = bool
-  default     = false
-  description = "Enable ECR repository scanning on push"
-}
+variable "ecr_config" {
+  type = object({
+    scan_on_push              = optional(bool, false)
+    repo_name                 = optional(string, "")
+    repo_remove_untagged_days = optional(number, 7)
+    task_definition_tag       = optional(string, "latest")
+    repo_max_images           = optional(number, 10)
+  })
 
-variable "ecr_repo_name" {
-  type        = string
-  description = "Name of the ECR repository"
-}
-
-variable "ecr_repo_remove_untagged_days" {
-  type        = number
-  default     = 7
-  description = "Number of days to keep untagged images"
-}
-
-variable "ecr_task_definition_tag" {
-  type        = string
-  default     = "latest"
-  description = "Tag to use for the ECR task definition"
+  nullable    = true
+  default     = null
+  description = "ECR repository configuration"
 }
 
 variable "enable_cloudwatch" {

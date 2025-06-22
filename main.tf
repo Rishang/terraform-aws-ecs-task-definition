@@ -60,7 +60,7 @@ locals {
     logDriver = "awslogs"
     options = {
       awslogs-group         = local.cloudwatch_log_group_name
-      awslogs-region        = data.aws_region.current.name
+      awslogs-region        = data.aws_region.current.region
       awslogs-stream-prefix = "ecs"
     }
   }) : jsonencode(var.logConfiguration)
@@ -92,7 +92,7 @@ locals {
     digit = "/\"(-[[:digit:]]|[[:digit:]]+)\"/"
   }
 
-  image = var.ecr_create_repo ? "${aws_ecr_repository.service[0].repository_url}:${var.ecr_task_definition_tag}" : var.image
+  image = var.ecr_create_repo ? "${aws_ecr_repository.service[0].repository_url}:${var.ecr_config.task_definition_tag}" : var.image
 
   template_file = templatefile(
     "${path.module}/templates/container-definition.json.tpl",
