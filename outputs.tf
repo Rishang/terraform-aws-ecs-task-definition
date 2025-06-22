@@ -19,5 +19,11 @@ output "revision" {
 }
 
 output "ecr_repo_name" {
-  value = var.ecr_create_repo == true ? aws_ecr_repository.service[0].name : null
+  description = "The name of the ECR repository created if ecr_create_repo is true"
+  value       = var.ecr_create_repo == true ? aws_ecr_repository.service[0].name : null
+}
+
+output "cloudwatch_log_group_name" {
+  description = "The name of the CloudWatch log group created if enable_cloudwatch is true"
+  value       = var.enable_cloudwatch ? aws_cloudwatch_log_group.ecs_task_definition[0].name : null
 }

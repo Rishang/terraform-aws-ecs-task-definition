@@ -47,8 +47,9 @@ The purpose of this module is to generate a valid Amazon [ECS Task Definition](h
 | Name | Description |
 |------|-------------|
 | <a name="output_arn"></a> [arn](#output\_arn) | The full Amazon Resource Name (ARN) of the task definition |
+| <a name="output_cloudwatch_log_group_name"></a> [cloudwatch\_log\_group\_name](#output\_cloudwatch\_log\_group\_name) | The name of the CloudWatch log group created if enable\_cloudwatch is true |
 | <a name="output_container_definitions"></a> [container\_definitions](#output\_container\_definitions) | A list of container definitions in JSON format that describe the different containers that make up your task |
-| <a name="output_ecr_repo_name"></a> [ecr\_repo\_name](#output\_ecr\_repo\_name) | n/a |
+| <a name="output_ecr_repo_name"></a> [ecr\_repo\_name](#output\_ecr\_repo\_name) | The name of the ECR repository created if ecr\_create\_repo is true |
 | <a name="output_family"></a> [family](#output\_family) | The family of your task definition, used as the definition name |
 | <a name="output_revision"></a> [revision](#output\_revision) | The revision of the task in a particular family |
 
