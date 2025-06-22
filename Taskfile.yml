@@ -1,0 +1,10 @@
+version: "3"
+
+tasks:
+  docs:
+    dir: ./
+    desc: Generate documentation for all modules
+    cmds:
+      - tfvar . > example.tfvars
+      - terraform-docs markdown .
+      - terraform fmt -recursive

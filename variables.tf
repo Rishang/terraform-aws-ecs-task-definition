@@ -197,7 +197,7 @@ variable "repositoryCredentials" {
 
 variable "requires_compatibilities" {
   default     = ["FARGATE"]
-  description = "The launch type required by the task"
+  description = "The launch type required by the task (FARGATE, FARGATE_SPOT, EC2)"
   type        = list(string)
 }
 

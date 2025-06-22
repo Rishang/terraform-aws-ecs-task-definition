@@ -1,0 +1,69 @@
+formatter: "markdown"
+header-from: main.tf
+
+sort:
+  enabled: true
+  by: required
+
+content: |-
+  {{ .Header }}
+
+  ![GitHub release](https://img.shields.io/github/release/mongodb/terraform-aws-ecs-task-definition.svg?style=flat-square) ![GitHub](https://img.shields.io/github/license/mongodb/terraform-aws-ecs-task-definition.svg?style=flat-square)
+
+  > A Terraform module for creating Amazon [ECS Task Definitions](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task_definitions.html)
+
+  ## NOTICE
+
+  **THIS MODULE IS NOT COMPATIBLE WITH VERSIONS OF TERRAFORM LESS THAN v0.12.x. PLEASE REFER TO THE OFFICIAL [DOCUMENTATION](https://www.terraform.io/upgrade-guides/0-12.html) FOR UPGRADING TO THE LATEST VERSION OF TERRAFORM.**
+
+  ## Contents
+
+  - [Motivation](#motivation)
+    - [Use Cases](#use-cases)
+  - [Requirements](#requirements)
+  - [Usage](#usage)
+    - [Multiple Container Definitions](#multiple-container-definitions)
+  - [Inputs](#inputs)
+  - [Outputs](#outputs)
+  - [Testing](#testing)
+  - [License](#license)
+
+  ## Motivation
+
+  The purpose of this module is to generate a valid Amazon [ECS Task Definition](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task_definitions.html) dynamically. A task definition is required to run Docker containers in Amazon ECS. A task definition contains a list of [container definitions](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task_definition_parameters.html#container_definitions) received by the Docker daemon to create a container instance.
+
+  ### Use Cases
+
+  - Have Terraform generate valid task definitions dynamically
+  - Update the ECS task definition and trigger new [service](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs_services.html) deployments automatically (see [examples/ecs_update_service.tf](examples/ecs_update_service.tf))
+
+  ## Requirements
+
+  - [Terraform](https://www.terraform.io/downloads.html)
+  - [Go](https://golang.org/dl/) (for testing)
+  ## Usage
+  
+  {{ .Providers }}
+
+  {{ .Outputs }}
+
+  ## available tfvar inputs
+
+  ```hcl
+  # null are required inputs, 
+  # others are optional default values
+
+  {{ include "example.tfvars" }}
+  ```
+
+  {{ .Inputs }}
+
+  ---
+  README.md created by: `terraform-docs`
+
+output:
+  file: "./README.md"
+  template: |-
+    <!-- BEGIN_TF_DOCS -->
+    {{ .Content }}
+    <!-- END_TF_DOCS -->
