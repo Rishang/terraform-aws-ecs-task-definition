@@ -290,10 +290,10 @@ variable "ecr_create_repo" {
 
 variable "ecr_config" {
   type = object({
-    scan_on_push              = optional(bool, false)
     repo_name                 = optional(string, "")
-    repo_remove_untagged_days = optional(number, 7)
     task_definition_tag       = optional(string, "latest")
+    repo_remove_untagged_days = optional(number, 7)
+    scan_on_push              = optional(bool, false)
     repo_max_images           = optional(number, 10)
   })
 
